@@ -35,6 +35,7 @@ TPSLMODE = str(os.environ['MODE'])
 TP = str(os.environ['TP_PERCENT'])
 SL = str(os.environ['SL_PERCENT'])
 BOT_NAME = str(os.environ['BOT_NAME'])
+notify = LineNotify(ACCESS_TOKEN)
 
 
 ################## Prepare API & SECRET ################
@@ -52,7 +53,7 @@ def webhook():
     if ORDER_ENABLE == 'TRUE':
 
         ######## Notify After Heroku Start ######
-        notify = LineNotify(ACCESS_TOKEN)
+        
         mes="ยินดีต้อนรับเข้าสู่\n~Binance Future 2EMA Bot~"+"\n\n🧭 === Setting === 🧭\n\nAsset : "+str(SYMBOLNAME)+"\nLeverage : "+str(LEVERAGE)+"\nTime Frame : "+TF+"\nFast EMA : "+FASTEMAVALUE+"\nSlow EMA : "+SLOWEMAVALUE+"\nTPSL Mode : "+str(TPSLMODE)
         notify.send(mes)
 
