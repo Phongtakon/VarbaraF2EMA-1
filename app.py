@@ -45,6 +45,9 @@ client = Client(API_KEY,API_SECRET)
 def hello_world():
     return BOT_NAME + "God Trader X48 It's Here !!"
 
+#Hedge Mode & OneWay Check
+data = client.futures_get_position_mode()
+print("Position mode: Hedge Mode" if data['dualSidePosition'] == True else "Position mode: OneWay Mode")
 
 if ORDER_ENABLE == 'TRUE':
 
@@ -103,10 +106,18 @@ if ORDER_ENABLE == 'TRUE':
     if pozisyondami and float(position_bilgi["positionAmt"][len(position_bilgi.index) - 1]) > 0:
        	longPozisyonda = True
        	shortPozisyonda = False
+        ####For V.1.1 Not Params For OneWay Mode Only, Hedge Must Be Add params
+        params = 'BOTH'
+        if data['dualSidePosition'] == True:
+            params = 'LONG'
     # Short pozisyonda mı?
     if pozisyondami and float(position_bilgi["positionAmt"][len(position_bilgi.index) - 1]) < 0:
        	shortPozisyonda = True
        	longPozisyonda = False
+        ####For V.1.1 Not Params For OneWay Mode Only, Hedge Must Be Add params
+        params = 'BOTH'
+        if data['dualSidePosition'] == True:
+            params = 'SHORT'
     # LOAD BARS
     bars = exchange.fetch_ohlcv(symboli, timeframe=TF, since = None, limit = 1500)
     df = pd.DataFrame(bars, columns=["timestamp", "open", "high", "low", "close", "volume"])
@@ -130,13 +141,15 @@ if ORDER_ENABLE == 'TRUE':
     	kesisim = False
     # LONG ENTER
     def longEnter(amount):
-       order = exchange.create_market_buy_order(newSymboli, amount)
+       order = exchange.create_market_buy_order(newSymboli, amount, params)
+       #order = exchange.create_market_buy_order(newSymboli, amount,)       #For V.1.1 Not Params For OneWay Only, Hedge add params
     # LONG EXIT
     def longExit():
        order = exchange.create_market_sell_order(newSymboli, 		float(position_bilgi["positionAmt"][len(position_bilgi.index) - 1]), {"reduceOnly": True})
     # SHORT ENTER
     def shortEnter(amount):
-       order = exchange.create_market_sell_order(newSymboli, amount)
+       order = exchange.create_market_sell_order(newSymboli, amount, params)
+       #order = exchange.create_market_sell_order(newSymboli, amount)       #For V.1.1 Not Params For OneWay Only, Hedge add params
     # SHORT EXIT
     def shortExit():
        order = exchange.create_market_buy_order(newSymboli, (float(position_bilgi["positionAmt"][len(position_bilgi.index) - 1]) * -1), {"reduceOnly": True})
