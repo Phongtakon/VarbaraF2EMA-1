@@ -3,4 +3,4 @@ gunicorn
 python-binance
 ccxt
 pandas
-EMAIndicator
+ta
