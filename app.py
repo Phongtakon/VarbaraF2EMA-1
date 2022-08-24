@@ -133,24 +133,24 @@ if ORDER_ENABLE == 'TRUE':
        order = exchange.create_market_buy_order(newSymboli, (float(position_bilgi["positionAmt"][len(position_bilgi.index) - 1]) * -1), {"reduceOnly": True})
     # BULL EVENT
     if kesisim and df["Fast Ema"][len(df.index)-2] > df["Slow Ema"][len(df.index)-2] and longPozisyonda == False:
-           	if shortPozisyonda:
-           		print("SHORT ENTERING PROCESSING...")
-           		shortExit()
-           	amount = (((float(free_balance["USDT"]) / 100 ) * float(cost)) * float(leveragei)) / float(df["close"][len(df.index) - 2])
-           	print("LONG ENTERING PROCESSING...")
-           	longEnter(amount)
-           	message ="\n"+ newSymboli +" "+str(leveragei)+" x"+ "\nสถานะ : LONG ↗️\n" + "ราคา : "+str(round(df["close"][len(df.index) - 1],5))+" USDT"+"\nจำนวน : "+str(round(amount,2))+" "+str(symbolNamei)+" / "+str(round((float(amount)*float(df["close"][len(df.index) - 1]))/float(leveragei),2))+" USDT"+"\n\n💰ยอดเงินคงเหลือ : " + str(round(balance['total']["USDT"],2))+" USDT"
-           	notify.send(message)
+        if shortPozisyonda:
+        	print("SHORT ENTERING PROCESSING...")
+        	shortExit()
+        amount = (((float(free_balance["USDT"]) / 100 ) * float(cost)) * float(leveragei)) / float(df["close"][len(df.index) - 2])
+        print("LONG ENTERING PROCESSING...")
+        longEnter(amount)
+        message ="\n"+ newSymboli +" "+str(leveragei)+" x"+ "\nสถานะ : LONG ↗️\n" + "ราคา : "+str(round(df["close"][len(df.index) - 1],5))+" USDT"+"\nจำนวน : "+str(round(amount,2))+" "+str(symbolNamei)+" / "+str(round((float(amount)*float(df["close"][len(df.index) - 1]))/float(leveragei),2))+" USDT"+"\n\n💰ยอดเงินคงเหลือ : " + str(round(balance['total']["USDT"],2))+" USDT"
+        notify.send(message)
     # BEAR EVENT
     if kesisim and df["Fast Ema"][len(df.index)-2] < df["Slow Ema"][len(df.index)-2] and shortPozisyonda == False:
-           	if longPozisyonda:
-           		print("LONG ENTERING PROCESSING...")
-           		longExit()
-           	amount = (((float(free_balance["USDT"]) / 100 ) * float(cost)) * float(leveragei)) / float(df["close"][len(df.index) -2])
-           	print ("SHORT ENTERING PROCESSING....")
-           	shortEnter(amount)
-           	message ="\n"+ newSymboli +" "+str(leveragei)+" x"+ "\nสถานะ : SHORT ↘️\n" + "ราคา : "+str(round(df["close"][len(df.index) - 1],5))+" USDT"+"\nจำนวน : "+str(round(amount,2))+" "+str(symbolNamei)+" / "+str(round((float(amount)*float(df["close"][len(df.index) - 1]))/float(leveragei),2))+" USDT"+"\n\n💰ยอดเงินคงเหลือ : " + str(round(balance['total']["USDT"],2))+" USDT"
-           	notify.send(message)
+        if longPozisyonda:
+        	print("LONG ENTERING PROCESSING...")
+        	longExit()
+        amount = (((float(free_balance["USDT"]) / 100 ) * float(cost)) * float(leveragei)) / float(df["close"][len(df.index) -2])
+        print ("SHORT ENTERING PROCESSING....")
+        shortEnter(amount)
+        message ="\n"+ newSymboli +" "+str(leveragei)+" x"+ "\nสถานะ : SHORT ↘️\n" + "ราคา : "+str(round(df["close"][len(df.index) - 1],5))+" USDT"+"\nจำนวน : "+str(round(amount,2))+" "+str(symbolNamei)+" / "+str(round((float(amount)*float(df["close"][len(df.index) - 1]))/float(leveragei),2))+" USDT"+"\n\n💰ยอดเงินคงเหลือ : " + str(round(balance['total']["USDT"],2))+" USDT"
+        notify.send(message)
     if TPSLMODE == 'on' :
        	if longPozisyonda:
        		ROE=(float(position_bilgi["unrealizedProfit"][len(position_bilgi.index) - 1])*100)/float(position_bilgi["initialMargin"][len(position_bilgi.index) - 1])
