@@ -189,8 +189,8 @@ if ORDER_ENABLE == 'TRUE':
     print("====================")       
 
             
-    else:
-        exchange_type = 'maintenance mode'
+else:
+    exchange_type = 'maintenance mode'
 
 if __name__ == '__main__':
     app.run(debug=True)
