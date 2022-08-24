@@ -1,0 +1,6 @@
+flask
+gunicorn
+python-binance
+ccxt
+pandas
+ta.trend
