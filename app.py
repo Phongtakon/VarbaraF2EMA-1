@@ -84,14 +84,14 @@ if ORDER_ENABLE == 'TRUE':
     	symbolNamei = symboltest
     	newSymboli = symboltest + "USDT"
     	symboli = symboltest + "/USDT"
-    	leveragei = LEVERAGE
+    	leveragei = '20'
     	current_positions = [position for position in positions if float(position['positionAmt']) != 0 and position['symbol'] == newSymboli]
     	position_bilgi = pd.DataFrame(current_positions, columns=["symbol", "entryPrice", "unrealizedProfit", "isolatedWallet", "positionAmt", "positionSide","initialMargin"])
     	print(newSymboli)
     #คำสั่งเซท leverage
     exchange.load_markets()
     market = exchange.markets[symboli]
-    exchange.fapiPrivate_post_leverage({"symbol": market['id'],"leverage": LEVERAGE,})
+    exchange.fapiPrivate_post_leverage({"symbol": market['id'],"leverage": leveragei,})
     #Pozisyonda olup olmadığını kontrol etme
     if not position_bilgi.empty and position_bilgi["positionAmt"][len(position_bilgi.index) - 1] != 0:
     	pozisyondami = True
