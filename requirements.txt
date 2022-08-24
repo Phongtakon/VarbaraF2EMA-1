@@ -4,3 +4,4 @@ python-binance
 ccxt
 pandas
 ta
+LineNotify
