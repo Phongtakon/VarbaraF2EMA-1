@@ -24,8 +24,8 @@ API_KEY = str(os.environ['API_KEY'])
 API_SECRET = str(os.environ['API_SECRET'])
 ACCESS_TOKEN = str(os.environ['LINE_TOKEN'])
 
-SYMBOLNAME = str(os.environ['SYMBOL_NAME'])
-LEVERAGE = str(os.environ['LEVERAGE_X'])
+SYMBOLNAME = str(os.environ['SYMBOL_NAME']).split(",")
+LEVERAGE = str(os.environ['LEVERAGE_X']).split(",")
 TF = str(os.environ['TF'])
 FASTEMAVALUE = str(os.environ['FAST_EMAVALUE'])
 SLOWEMAVALUE = str(os.environ['SLOW_EMAVALUE'])
@@ -71,23 +71,23 @@ if ORDER_ENABLE == 'TRUE':
     balance = exchange.fetch_balance()
     free_balance = exchange.fetch_free_balance()      
     positions = balance['info']['positions']
-    #for i in range(len(SYMBOLNAME)):
-    #	symbolNamei = SYMBOLNAME[i]
-    #	newSymboli = SYMBOLNAME[i] + "USDT"
-    #	symboli = SYMBOLNAME[i] + "USDT"
-    #	leveragei = LEVERAGE[i]
-    #	current_positions = [position for position in positions if float(position['positionAmt']) != 0 and position['symbol'] == newSymboli]
-    #	position_bilgi = pd.DataFrame(current_positions, columns=["symbol", "entryPrice", "unrealizedProfit", "isolatedWallet", "positionAmt", "positionSide","initialMargin"])
-    #	print(newSymboli)
-    symboltest = ('XRP')
-    for i in range(len(symboltest)):
-    	symbolNamei = symboltest
-    	newSymboli = symboltest + "USDT"
-    	symboli = symboltest + "/USDT"
-    	leveragei = '20'
+    for i in range(len(SYMBOLNAME)):
+    	symbolNamei = SYMBOLNAME[i]
+    	newSymboli = SYMBOLNAME[i] + "USDT"
+    	symboli = SYMBOLNAME[i] + "USDT"
+    	leveragei = LEVERAGE[i]
     	current_positions = [position for position in positions if float(position['positionAmt']) != 0 and position['symbol'] == newSymboli]
     	position_bilgi = pd.DataFrame(current_positions, columns=["symbol", "entryPrice", "unrealizedProfit", "isolatedWallet", "positionAmt", "positionSide","initialMargin"])
     	print(newSymboli)
+    #symboltest = ('XRP')
+    #for i in range(len(symboltest)):
+    #	symbolNamei = symboltest
+    #	newSymboli = symboltest + "USDT"
+    #	symboli = symboltest + "/USDT"
+    #	leveragei = '20'
+    #	current_positions = [position for position in positions if float(position['positionAmt']) != 0 and position['symbol'] == newSymboli]
+    #	position_bilgi = pd.DataFrame(current_positions, columns=["symbol", "entryPrice", "unrealizedProfit", "isolatedWallet", "positionAmt", "positionSide","initialMargin"])
+    #	print(newSymboli)
     #คำสั่งเซท leverage
     exchange.load_markets()
     market = exchange.markets[symboli]
