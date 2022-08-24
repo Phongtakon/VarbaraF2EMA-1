@@ -71,10 +71,19 @@ if ORDER_ENABLE == 'TRUE':
     balance = exchange.fetch_balance()
     free_balance = exchange.fetch_free_balance()      
     positions = balance['info']['positions']
-    for i in range(len(SYMBOLNAME)):
-    	symbolNamei = SYMBOLNAME[i]
-    	newSymboli = SYMBOLNAME[i] + "USDT"
-    	symboli = SYMBOLNAME[i] + "USDT"
+    #for i in range(len(SYMBOLNAME)):
+    #	symbolNamei = SYMBOLNAME[i]
+    #	newSymboli = SYMBOLNAME[i] + "USDT"
+    #	symboli = SYMBOLNAME[i] + "USDT"
+    #	leveragei = LEVERAGE[i]
+    #	current_positions = [position for position in positions if float(position['positionAmt']) != 0 and position['symbol'] == newSymboli]
+    #	position_bilgi = pd.DataFrame(current_positions, columns=["symbol", "entryPrice", "unrealizedProfit", "isolatedWallet", "positionAmt", "positionSide","initialMargin"])
+    #	print(newSymboli)
+    symboltest = ('XRP','ADA')
+    for i in range(len(symboltest)):
+    	symbolNamei = symboltest[i]
+    	newSymboli = symboltest[i] + "USDT"
+    	symboli = symboltest[i] + "USDT"
     	leveragei = LEVERAGE[i]
     	current_positions = [position for position in positions if float(position['positionAmt']) != 0 and position['symbol'] == newSymboli]
     	position_bilgi = pd.DataFrame(current_positions, columns=["symbol", "entryPrice", "unrealizedProfit", "isolatedWallet", "positionAmt", "positionSide","initialMargin"])
