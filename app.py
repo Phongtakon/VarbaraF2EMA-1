@@ -81,10 +81,10 @@ if ORDER_ENABLE == 'TRUE':
     #	print(newSymboli)
     symboltest = ('XRP')
     for i in range(len(symboltest)):
-    	symbolNamei = symboltest[i]
-    	newSymboli = symboltest[i] + "USDT"
-    	symboli = symboltest[i] + "USDT"
-    	leveragei = LEVERAGE[i]
+    	symbolNamei = symboltest
+    	newSymboli = symboltest + "USDT"
+    	symboli = symboltest + "USDT"
+    	leveragei = LEVERAGE
     	current_positions = [position for position in positions if float(position['positionAmt']) != 0 and position['symbol'] == newSymboli]
     	position_bilgi = pd.DataFrame(current_positions, columns=["symbol", "entryPrice", "unrealizedProfit", "isolatedWallet", "positionAmt", "positionSide","initialMargin"])
     	print(newSymboli)
