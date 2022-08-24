@@ -48,8 +48,6 @@ def hello_world():
 #webhook can edit /webhook or /whatevauwant /xxxxxx
 @app.route("/varbarabot", methods=['POST'])
 def webhook():
-    data = json.loads(request.data)
-    print("decoding data...")
     if ORDER_ENABLE == 'TRUE':
 
         ######## Notify After Heroku Start ######
