@@ -74,7 +74,7 @@ if ORDER_ENABLE == 'TRUE':
     for i in range(len(SYMBOLNAME)):
     	symbolNamei = SYMBOLNAME[i]
     	newSymboli = SYMBOLNAME[i] + "USDT"
-    	symboli = SYMBOLNAME[i] + "USDT"
+    	symboli = SYMBOLNAME[i] + "/USDT"
     	leveragei = LEVERAGE[i]
     	current_positions = [position for position in positions if float(position['positionAmt']) != 0 and position['symbol'] == newSymboli]
     	position_bilgi = pd.DataFrame(current_positions, columns=["symbol", "entryPrice", "unrealizedProfit", "isolatedWallet", "positionAmt", "positionSide","initialMargin"])
