@@ -91,7 +91,7 @@ if ORDER_ENABLE == 'TRUE':
     #คำสั่งเซท leverage
     exchange.load_markets()
     market = exchange.markets[symboli]
-    exchange.fapiPrivate_post_leverage({"symbol": market['id'],"leverage": leveragei,})
+    exchange.fapiPrivate_post_leverage({"symbol": market['id'],"leverage": LEVERAGE,})
     #Pozisyonda olup olmadığını kontrol etme
     if not position_bilgi.empty and position_bilgi["positionAmt"][len(position_bilgi.index) - 1] != 0:
     	pozisyondami = True
