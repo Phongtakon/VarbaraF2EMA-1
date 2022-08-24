@@ -75,13 +75,13 @@ if ORDER_ENABLE == 'TRUE':
     free_balance = exchange.fetch_free_balance()      
     positions = balance['info']['positions']
     for i in range(len(SYMBOLNAME)):
-    	symbolNamei = SYMBOLNAME[i]
-    	newSymboli = SYMBOLNAME[i] + "USDT"
-    	symboli = SYMBOLNAME[i] + "/USDT"
-    	leveragei = LEVERAGE[i]
-    	current_positions = [position for position in positions if float(position['positionAmt']) != 0 and position['symbol'] == newSymboli]
-    	position_bilgi = pd.DataFrame(current_positions, columns=["symbol", "entryPrice", "unrealizedProfit", "isolatedWallet", "positionAmt", "positionSide","initialMargin"])
-    	print(newSymboli)
+        symbolNamei = SYMBOLNAME[i]
+        newSymboli = SYMBOLNAME[i] + "USDT"
+        symboli = SYMBOLNAME[i] + "/USDT"
+        leveragei = LEVERAGE[i]
+        current_positions = [position for position in positions if float(position['positionAmt']) != 0 and position['symbol'] == newSymboli]
+        position_bilgi = pd.DataFrame(current_positions, columns=["symbol", "entryPrice", "unrealizedProfit", "isolatedWallet", "positionAmt", "positionSide","initialMargin"])
+        print(newSymboli)
     #symboltest = ('XRP')
     #for i in range(len(symboltest)):
     #	symbolNamei = symboltest
@@ -141,18 +141,30 @@ if ORDER_ENABLE == 'TRUE':
     	kesisim = False
     # LONG ENTER
     def longEnter(amount):
-       order = exchange.create_market_buy_order(newSymboli, amount, params)
-       #order = exchange.create_market_buy_order(newSymboli, amount,)       #For V.1.1 Not Params For OneWay Only, Hedge add params
+        if data['dualSidePosition'] == True:
+            order = exchange.create_market_buy_order(newSymboli, amount, params)
+            #order = exchange.create_market_buy_order(newSymboli, amount,)       #For V.1.1 Not Params For OneWay Only, Hedge add params
+        else :
+            order = exchange.create_market_buy_order(newSymboli, amount)
     # LONG EXIT
     def longExit():
-       order = exchange.create_market_sell_order(newSymboli, 		float(position_bilgi["positionAmt"][len(position_bilgi.index) - 1]), {"reduceOnly": True})
+        if data['dualSidePosition'] == True:
+            order = exchange.create_market_sell_order(newSymboli, 		float(position_bilgi["positionAmt"][len(position_bilgi.index) - 1]), {"reduceOnly": True}, params)
+        else :
+            order = exchange.create_market_sell_order(newSymboli, 		float(position_bilgi["positionAmt"][len(position_bilgi.index) - 1]), {"reduceOnly": True})
     # SHORT ENTER
     def shortEnter(amount):
-       order = exchange.create_market_sell_order(newSymboli, amount, params)
-       #order = exchange.create_market_sell_order(newSymboli, amount)       #For V.1.1 Not Params For OneWay Only, Hedge add params
+        if data['dualSidePosition'] == True:
+            order = exchange.create_market_sell_order(newSymboli, amount, params)
+            #order = exchange.create_market_sell_order(newSymboli, amount)       #For V.1.1 Not Params For OneWay Only, Hedge add params
+        else :
+            order = exchange.create_market_sell_order(newSymboli, amount)  
     # SHORT EXIT
     def shortExit():
-       order = exchange.create_market_buy_order(newSymboli, (float(position_bilgi["positionAmt"][len(position_bilgi.index) - 1]) * -1), {"reduceOnly": True})
+        if data['dualSidePosition'] == True:
+            order = exchange.create_market_buy_order(newSymboli, (float(position_bilgi["positionAmt"][len(position_bilgi.index) - 1]) * -1), {"reduceOnly": True}, params)
+        else :
+            order = exchange.create_market_buy_order(newSymboli, (float(position_bilgi["positionAmt"][len(position_bilgi.index) - 1]) * -1), {"reduceOnly": True})
     # BULL EVENT
     if kesisim and df["Fast Ema"][len(df.index)-2] > df["Slow Ema"][len(df.index)-2] and longPozisyonda == False:
         if shortPozisyonda:
