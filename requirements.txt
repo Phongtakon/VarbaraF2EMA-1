@@ -5,3 +5,4 @@ ccxt
 pandas
 ta
 LineNotify
+line_notify
