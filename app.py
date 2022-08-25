@@ -119,7 +119,7 @@ if ORDER_ENABLE == 'TRUE':
         if data['dualSidePosition'] == True:
             params = 'SHORT'
     # LOAD BARS
-    bars = exchange.fetch_ohlcv(symboli, timeframe=TF, since = None, limit = 1500)
+    bars = exchange.fetch_ohlcv(symboli, timeframe=TF, since = None, limit = 50)
     df = pd.DataFrame(bars, columns=["timestamp", "open", "high", "low", "close", "volume"])
     # LOAD FAST EMA
     FastEma= EMAIndicator(df["close"], float(FASTEMAVALUE))
