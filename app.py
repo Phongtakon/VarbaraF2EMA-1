@@ -53,8 +53,8 @@ if ORDER_ENABLE == 'TRUE':
 
     ######## Notify After Heroku Start ######
     
-    #mes="ยินดีต้อนรับเข้าสู่\n~Binance Future 2EMA Bot~"+"\n\n🧭 === Setting === 🧭\n\nAsset : "+str(SYMBOLNAME)+"\nLeverage : "+str(LEVERAGE)+"\nTime Frame : "+TF+"\nFast EMA : "+FASTEMAVALUE+"\nSlow EMA : "+SLOWEMAVALUE+"\nTPSL Mode : "+str(TPSLMODE)
-    #notify.send(mes)
+    mes="ยินดีต้อนรับเข้าสู่\n~Binance Future 2EMA Bot~"+"\n\n🧭 === Setting === 🧭\n\nAsset : "+str(SYMBOLNAME)+"\nLeverage : "+str(LEVERAGE)+"\nTime Frame : "+TF+"\nFast EMA : "+FASTEMAVALUE+"\nSlow EMA : "+SLOWEMAVALUE+"\nTPSL Mode : "+str(TPSLMODE)
+    notify.send(mes)
     ####### Setting ##########
     kesisim = False
     longPozisyonda = False
@@ -190,12 +190,12 @@ if ORDER_ENABLE == 'TRUE':
        		ROE=(float(position_bilgi["unrealizedProfit"][len(position_bilgi.index) - 1])*100)/float(position_bilgi["initialMargin"][len(position_bilgi.index) - 1])
        		TP=float(TP)*float(leveragei)
        		SL=float(SL)*float(leveragei)
-       		if kesisim == False and ROE >= TP and tp != 0:
+       		if kesisim == False and ROE >= TP and TP != 0:
        			print("LONG TAKE PROFIT PROCESSING...")
        			longExit()
        			message = "\n"+ newSymboli +" "+str(leveragei)+" x"+ "\nสถานะ : Long TP 😆\n" + "ราคา : "+str(round(df["close"][len(df.index) - 1],5))+" USDT"+"\nROE : "+str(round(ROE,2))+" %\n\n💰ยอดเงินคงเหลือ : " + str(round(balance['total']["USDT"],2))+" USDT"
        			notify.send(message)
-       		if kesisim == False and ROE <= SL and sl != 0:
+       		if kesisim == False and ROE <= SL and SL != 0:
        			print("LONG STOP LOSS PROCESSING...")
        			longExit()
        			message = "\n"+ newSymboli +" "+str(leveragei)+" x"+ "\nสถานะ : Long SL 😭\n" + "ราคา : "+str(round(df["close"][len(df.index) - 1],5))+" USDT"+"\nROE : "+str(round(ROE,2))+" %\n\n💰ยอดเงินคงเหลือ : " + str(round(balance['total']["USDT"],2))+" USDT"
@@ -204,12 +204,12 @@ if ORDER_ENABLE == 'TRUE':
        		ROE=(float(position_bilgi["unrealizedProfit"][len(position_bilgi.index) - 1])*100)/float(position_bilgi["initialMargin"][len(position_bilgi.index) - 1])
        		TP=float(TP)*float(leveragei)
        		SL=float(SL)*float(leveragei)
-       		if kesisim == False and ROE >= TP and tp != 0:
+       		if kesisim == False and ROE >= TP and TP != 0:
        		 	print("SHORT TAKE PROFIT PROCESSING...")
        		 	shortExit()
        		 	message = "\n"+ newSymboli +" "+str(leveragei)+" x"+ "\nสถานะ : Short TP 😆\n" + "ราคา : "+str(round(df["close"][len(df.index) - 1],5))+" USDT"+"\nROE : "+str(round(ROE,2))+" %\n\n💰ยอดเงินคงเหลือ : " + str(round(balance['total']["USDT"],2))+" USDT"
        		 	notify.send(message)
-       		 	if kesisim == False and ROE <= SL and sl != 0:
+       		 	if kesisim == False and ROE <= SL and SL != 0:
        		 		print("SHORT STOP LOSS PROCESSING...")
        		 		shortExit()
        		 		message = "\n"+ newSymboli +" "+str(leveragei)+" x"+ "\nสถานะ : Short SL 😭\n" + "ราคา : "+str(round(df["close"][len(df.index) - 1],5))+" USDT"+"\nROE : "+str(round(ROE,2))+" %\n\n💰ยอดเงินคงเหลือ : " + str(round(balance['total']["USDT"],2))+" USDT"
